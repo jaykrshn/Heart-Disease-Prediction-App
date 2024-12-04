@@ -5,6 +5,8 @@ app/HDapp.db
 trained_model/*
 mlruns/
 mlflow.db
+test
+testdb.db
 
 #
 # Python .gitignore
