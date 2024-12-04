@@ -1,0 +1,16 @@
+.git
+.venv
+venv
+.dockerignore
+.gitignore
+.mypy_cache
+.pytest_cache
+.python-version
+.ruff_cache
+.vscode
+Dockerfile
+docker-compose.*.yml
+docker-compose.*.yaml
+test
+testdb
+hd-app.db

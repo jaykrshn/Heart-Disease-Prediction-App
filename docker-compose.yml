@@ -1,0 +1,35 @@
+services:
+  heart-disease-prediction-db:
+    container_name: hd-prediction-db
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${DB_USER:-root}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+      POSTGRES_DB: ${DB_DATABASE:-postgres}
+      LANG: en_US.utf8
+      POSTGRES_INITDB_ARGS: "--locale-provider=icu --icu-locale=en-US"
+      TZ: "Europe/Vienna"
+    ports:
+      - 5454:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  heart-disease-prediction-app:
+    container_name: hd-prediction-app
+    image: heart-disease-prediction:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - heart-disease-prediction-db
+    environment:
+      DB_USER: ${DB_USER:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-secret}
+      DB_DATABASE: ${DB_DATABASE:-postgres}
+      DB_HOST: hd-prediction-db
+      DB_PORT: 5432
+    ports:
+      - ${APP_PORT:-8040}:8000
+
+volumes:
+  db-data:
