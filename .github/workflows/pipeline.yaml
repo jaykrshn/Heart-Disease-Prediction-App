@@ -131,6 +131,12 @@ jobs:
           docker tag heart_disease_prediction-app:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/heart_disease_prediction-app:latest
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/heart_disease_prediction-app:latest  
 
+
+  # Step 7: Deploy to EC2
+  deploy:
+    runs-on: ubuntu-latest
+    needs: push-image-ECR
+    steps:
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
@@ -140,5 +146,5 @@ jobs:
           script: |
             docker pull ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/heart_disease_prediction-app:latest
             docker stop heart_disease_prediction-app || true # In case the container doesn't exist yet
-            docker rm heart_disease_prediction-app || true
-            docker run -d -p 80:8000 --name heart_disease_prediction-app ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/heart_disease_prediction-app:latest 
+            docker rm -f heart_disease_prediction-app || true
+            docker run -d -p 80:8000 --name heart_disease_prediction-app ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/heart_disease_prediction-app:latest
