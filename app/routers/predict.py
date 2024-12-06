@@ -34,25 +34,14 @@ regmodel = pickle.load(open(TRAINED_MODEL_PATH, 'rb'))
 scalar = pickle.load(open(SCALLING_MODEL_PATH, 'rb'))
 
 
-
-# class PredictRequest(BaseModel):
-#     age: float
-#     cigsPerDay: float
-#     prevalentStroke: float
-#     sysBP: float
-#     diaBP: float
-#     heartRate: float
-#     glucose: float
-
-
 class PredictRequest(BaseModel):
     age: int = Field(..., gt=0, description="Age must be greater than 0")
     cigsPerDay: int = Field(..., ge=0, description="Cigarettes per day must be 0 or greater")
     prevalentStroke: int = Field(..., ge=0, le=1, description="Prevalent stroke must be 0 or 1")
-    sysBP: float = Field(..., gt=0, description="Systolic BP must be greater than 0")
-    diaBP: float = Field(..., gt=0, description="Diastolic BP must be greater than 0")
-    heartRate: float = Field(..., gt=0, description="Heart rate must be greater than 0")
-    glucose: float = Field(..., gt=0, description="Glucose level must be greater than 0")
+    sysBP: int = Field(..., gt=0, description="Systolic BP must be greater than 0")
+    diaBP: int = Field(..., gt=0, description="Diastolic BP must be greater than 0")
+    heartRate: int = Field(..., gt=0, description="Heart rate must be greater than 0")
+    glucose: int = Field(..., gt=0, description="Glucose level must be greater than 0")
 
     class Config:
         schema_extra = {
@@ -93,10 +82,10 @@ async def make_prediction(user: user_dependency, db: db_dependency,
                                 "age": 45,
                                 "cigsPerDay": 10,
                                 "prevalentStroke": 0,
-                                "sysBP": 120.5,
+                                "sysBP": 120,
                                 "diaBP": 80.2,
-                                "heartRate": 72.5,
-                                "glucose": 95.3,
+                                "heartRate": 72,
+                                "glucose": 95,
                             })):
     if user is None:
         raise HTTPException(status_code=401, detail='Authentication Failed')
