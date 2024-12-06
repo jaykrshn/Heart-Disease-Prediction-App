@@ -49,10 +49,10 @@ class PredictRequest(BaseModel):
                 "age": 45,
                 "cigsPerDay": 10,
                 "prevalentStroke": 0,
-                "sysBP": 120.5,
-                "diaBP": 80.2,
-                "heartRate": 72.5,
-                "glucose": 95.3,
+                "sysBP": 120,
+                "diaBP": 80,
+                "heartRate": 72,
+                "glucose": 95,
             }
         }
 
@@ -83,7 +83,7 @@ async def make_prediction(user: user_dependency, db: db_dependency,
                                 "cigsPerDay": 10,
                                 "prevalentStroke": 0,
                                 "sysBP": 120,
-                                "diaBP": 80.2,
+                                "diaBP": 80,
                                 "heartRate": 72,
                                 "glucose": 95,
                             })):
