@@ -28,4 +28,4 @@ class Predict(Base):
     heartRate = Column(Float)
     glucose = Column(Float)
     result = Column(Integer)
-    owner_id = Column(Float, ForeignKey('users.id'))
+    owner_id = Column(Integer, ForeignKey('users.id'))
