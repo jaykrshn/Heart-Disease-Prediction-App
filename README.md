@@ -129,11 +129,12 @@ Here’s a polished version of your `README.md` file with all the steps clearly 
    cp .env.example .env
    ```  
    Update the values in the `.env` file according to your configuration. Example keys include:  
-   - `db_user`  
-   - `db_password`  
-   - `db_host`  
-   - `db_port`  
-   - `db_name`  
+   - `APP_PORT`  
+   - `DB_USER`  
+   - `DB_PASSWORD`  
+   - `DB_DATABASE`  
+   - `DB_HOST`  
+   - `DB_PORT`  
 
 ---
 
@@ -148,8 +149,6 @@ Here’s a polished version of your `README.md` file with all the steps clearly 
    SQLALCHEMY_DATABASE_URL = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
    engine = create_engine(SQLALCHEMY_DATABASE_URL)
    ```  
-   Modify the placeholders `{db_user}`, `{db_password}`, `{db_host}`, `{db_port}`, and `{db_name}` to match your `.env` file.
-
 ---
 
 #### 3. Run the Application
