@@ -89,3 +89,151 @@ Once the app is running, it will be accessible via the following URLs:
 
 - **Main App**: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 - **Swagger UI (for API documentation)**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+
+### 5. Dockerize the Application
+
+After training the model, you can containerize the app using Docker.
+
+#### a) Build the Docker Image
+
+Navigate to the root directory of the project and build the Docker image using the following command:
+
+```bash
+docker build -t heart-disease-app .
+```
+
+#### b) Run the Docker Container
+
+Once the image is built, run the Docker container:
+
+```bash
+docker run -p 8000:8000 heart-disease-app 
+```
+
+This will start the FastAPI app inside a container and expose it on `http://127.0.0.1:8000/`.
+
+---
+
+Here’s a polished version of your `README.md` file with all the steps clearly outlined:
+
+---
+
+### 5. Run App with PostgreSQL and Docker Compose
+
+
+#### 1. Configuration
+
+1. **Create a `.env` file**  
+   In the root directory, create a file named `.env`. Refer to the `example` file for guidance:  
+   ```
+   cp .env.example .env
+   ```  
+   Update the values in the `.env` file according to your configuration. Example keys include:  
+   - `db_user`  
+   - `db_password`  
+   - `db_host`  
+   - `db_port`  
+   - `db_name`  
+
+---
+
+#### 2. Modify Database Configuration
+
+- Open the file **`app/database.py`**.
+- Make the following changes:  
+   - **Comment out lines 13 and 14**: These lines refer to the SQLite configuration.  
+   - **Uncomment lines 13 and 14**: Update the PostgreSQL database URL and engine creation lines as follows:  
+
+   ```python
+   SQLALCHEMY_DATABASE_URL = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+   engine = create_engine(SQLALCHEMY_DATABASE_URL)
+   ```  
+   Modify the placeholders `{db_user}`, `{db_password}`, `{db_host}`, `{db_port}`, and `{db_name}` to match your `.env` file.
+
+---
+
+#### 3. Run the Application
+
+To build and start the containers, run the following command in the root directory:
+
+```bash
+docker-compose up
+```
+
+This will:
+
+- Start a PostgreSQL container named **`hd-prediction-db`** using the `postgres:17-alpine` image.  
+- Start another container named **`hd-prediction-app`** to run the application code.  
+
+---
+
+#### 4. Verify the Containers
+
+You can check the running containers with:
+
+```bash
+docker ps
+```
+
+---
+
+#### Application Details
+
+- **Database**: PostgreSQL 17 (Alpine)  
+- **Backend**: Python with SQLAlchemy ORM  
+
+---
+
+#### Notes
+
+- Stop the containers using `Ctrl+C` or:
+
+   ```bash
+   docker-compose down
+   ```
+
+- Ensure your `.env` file contains correct values to avoid connection issues.
+
+---
+
+That's it! The application should now be running successfully using Docker and PostgreSQL. 🚀
+
+---
+
+## Folder Structure
+
+```
+├── .github/                       # GitHub workflows for CI/CD pipeline
+│   ├── workflows/                 # Contains GitHub Actions workflow files
+│       ├── pipeline.yml           # CI/CD pipeline configuration for automated testing and deployment
+│
+├── app/                           # Application source code
+│   ├── trained_model/             # Pre-trained machine learning models
+│       ├── reg_model.pkl          # Pickle file containing the trained Logistic Regression model
+│   ├── routers/                   # API route definitions for different functionalities
+│       ├── admin.py               # Routes for admin-related operations
+│       ├── auth.py                # Routes for authentication and authorization
+│       ├── predict.py             # Routes for heart disease predictions
+│       ├── users.py               # Routes for user management
+│   ├── main.py                    # Entry point for the FastAPI application
+│   ├── database.py                # Database connection and ORM engine configuration
+│   ├── models.py                  # SQLAlchemy models for database tables
+│
+├── dataset/                       # Datasets used for training the model
+│   ├── framingham_heart_disease.csv  # Dataset for heart disease prediction
+│
+├── research/                      # Research and experimentation work
+│   ├── heart-disease-prediction-logistic-regression.ipynb  # Jupyter Notebook for model training and analysis
+│
+├── Dockerfile                     # Instructions to build the Docker container for the application
+├── docker-compose.yml             # Configuration to manage multi-container Docker applications
+├── .dockerignore                  # Files and directories to exclude during Docker image build
+│
+├── requirements.txt               # List of required Python packages for production
+├── requirements.dev.txt           # List of required Python packages for development and testing
+│
+└── README.md                      # Project documentation and setup instructions
+
+```
+
+---
