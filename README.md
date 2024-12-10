@@ -141,7 +141,7 @@ Here’s a polished version of your `README.md` file with all the steps clearly 
 
 - Open the file **`app/database.py`**.
 - Make the following changes:  
-   - **Comment out lines 13 and 14**: These lines refer to the SQLite configuration.  
+   - **Comment out lines 16 and 17**: These lines refer to the SQLite configuration.  
    - **Uncomment lines 13 and 14**: Update the PostgreSQL database URL and engine creation lines as follows:  
 
    ```python
