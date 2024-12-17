@@ -82,12 +82,11 @@ After running the notebook, a trained model pickle file (`reg_model.pkl`) will b
 To test the FastAPI app, run the following command:
 
 ```bash
-python app/main.py
+python uvicorn app.main:app --reload
 ```
 
 Once the app is running, it will be accessible via the following URLs:
 
-- **Main App**: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 - **Swagger UI (for API documentation)**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
 ### 5. Dockerize the Application
@@ -114,11 +113,9 @@ This will start the FastAPI app inside a container and expose it on `http://127.
 
 ---
 
-Here’s a polished version of your `README.md` file with all the steps clearly outlined:
-
 ---
 
-### 5. Run App with PostgreSQL and Docker Compose
+### 6. Run App with PostgreSQL and Docker Compose
 
 
 #### 1. Configuration
