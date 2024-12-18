@@ -224,6 +224,7 @@ That's it! The application should now be running successfully using Docker and P
 ├── Dockerfile                     # Instructions to build the Docker container for the application
 ├── docker-compose.yml             # Configuration to manage multi-container Docker applications
 ├── .dockerignore                  # Files and directories to exclude during Docker image build
+├── .env                  
 │
 ├── requirements.txt               # List of required Python packages for production
 ├── requirements.dev.txt           # List of required Python packages for development and testing
